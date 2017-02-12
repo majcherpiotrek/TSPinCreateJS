@@ -1,6 +1,6 @@
 var stage = new createjs.Stage("demoCanvas");
 var background = new createjs.Bitmap("img/background.png");
-var townsNumber = 10;
+var townsNumber = 20;
 var towns = new TownsMap(townsNumber);
 var greedyAlgorithm = new Greedy(towns);
 
@@ -21,21 +21,16 @@ function start(){
 }
 
 function handleTick(){
-	var connnection = greedyAlgorithm.makeStep(stage);
-	console.log(connnection[0]+" "+connnection[1]);
-	if(connnection[1] != -1){
-		if(connnection[2] == true)
-			stage.removeChildAt(stage.numChildren-1);
-		var A = connnection[0];
-		var B = connnection[1];
-		var line = new createjs.Shape();
-		line.graphics.setStrokeStyle(1);
-		line.graphics.beginStroke("red");
-		line.graphics.moveTo(towns.map[A].townShape.x, towns.map[A].townShape.y);
-		line.graphics.lineTo(towns.map[B].townShape.x, towns.map[B].townShape.y);
-		line.graphics.endStroke();
-		stage.addChild(line);}
-	
-	
+	var connnection = greedyAlgorithm.makeStep(stage);	
 	stage.update();
+}
+
+function drawLine(stage, Ax, Ay, Bx, By){
+	var line = new createjs.Shape();
+	line.graphics.setStrokeStyle(1);
+	line.graphics.beginStroke("red");
+	line.graphics.moveTo(Ax,Ay);
+	line.graphics.lineTo(Bx,By);
+	line.graphics.endStroke();
+	stage.addChild(line);
 }
